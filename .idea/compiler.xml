@@ -6,15 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="EMPLOYEE" />
-      </profile>
-      <profile name="Annotation profile for ADDRESS" enabled="true">
-        <sourceOutputDir name="../../Microservices/ADDRESS/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../Microservices/ADDRESS/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
         <module name="ADDRESS" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="EMPLOYEE" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
