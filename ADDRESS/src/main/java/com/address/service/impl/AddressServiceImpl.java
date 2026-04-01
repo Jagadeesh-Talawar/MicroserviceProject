@@ -1,5 +1,6 @@
 package com.address.service.impl;
 
+import com.address.exception.ResourceNotFoundException;
 import com.address.model.dto.AddressDto;
 import com.address.model.dto.AddressRequest;
 import com.address.model.dto.AddressRequestDto;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -46,23 +48,40 @@ public class AddressServiceImpl implements AddressService {
             log.info("Creating new address for employee id {} ", addressRequest.getEmpId());
         }
         List<Address> listToUpdate = this.saveOrUpdateAddressRequest(addressRequest);
+        List<Long> upcomingNonNullIds = listToUpdate.stream().map(Address::getId).filter(Objects::nonNull).toList();
+        List<Long> existingIds = addressByEmpId.stream().map(Address::getId).toList();
 
-
-        return null;
+        List<Long> idsToDelete = existingIds.stream().filter(id -> !upcomingNonNullIds.contains(id)).toList();
+        if(!idsToDelete.isEmpty()){
+            addressRepository.deleteAllById(idsToDelete);
+        }
+        List<Address> updatedAddress = addressRepository.saveAll(listToUpdate);
+        return updatedAddress.stream().map(address -> modelMapper.map(address,AddressDto.class)).toList();
     }
 
     @Override
     public AddressDto getSingleAddress(Long id) {
-        return null;
+       Address address = addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found with id: " + id));
+
+        return modelMapper.map(address, AddressDto.class);
     }
 
     @Override
     public List<AddressDto> getAllAddress() {
-        return List.of();
+        List<Address> address = addressRepository.findAll();
+        if(address.isEmpty()){
+            throw new ResourceNotFoundException("No address found");
+        }
+        return address.stream().map(all -> modelMapper.map(all, AddressDto.class)).toList();
+
+
     }
 
     @Override
     public void deleteAddress(Long id) {
+        Address address = addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found with id: " + id));
+        addressRepository.delete(address);
+
 
     }
 
@@ -83,4 +102,5 @@ public class AddressServiceImpl implements AddressService {
         return listToSave;
 
     }
+
 }
