@@ -1,9 +1,11 @@
 package com.address.service.impl;
 
+import com.address.client.EmployeeClient;
 import com.address.exception.ResourceNotFoundException;
 import com.address.model.dto.AddressDto;
 import com.address.model.dto.AddressRequest;
 import com.address.model.dto.AddressRequestDto;
+import com.address.model.dto.EmployeeDto;
 import com.address.model.entity.Address;
 import com.address.repository.AddressRepository;
 import com.address.service.AddressService;
@@ -24,10 +26,15 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final ModelMapper modelMapper;
 
+    private final EmployeeClient employeeClient;
+
+
     public AddressServiceImpl(AddressRepository addressRepository,
-    ModelMapper modelMapper){
+    ModelMapper modelMapper,
+    EmployeeClient employeeClient){
         this.addressRepository = addressRepository;
         this.modelMapper = modelMapper;
+        this.employeeClient = employeeClient;
     }
     @Override
     public List<AddressDto> saveAddress(AddressRequest addressRequest) {
@@ -41,7 +48,10 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<AddressDto> updateAddress(AddressRequest addressRequest) {
         // TODO: check if employee exists
-
+        EmployeeDto singleEmployee = employeeClient.getSingleEmployee(addressRequest.getEmpId());
+        if(singleEmployee == null){
+            throw new ResourceNotFoundException("Employee not found with ID: " + addressRequest.getEmpId());
+        }
         List<Address> addressByEmpId =  addressRepository.findAllByEmpId(addressRequest.getEmpId());
         if(addressByEmpId.isEmpty()){
             log.info("No address found for employee id {} ", addressRequest.getEmpId());

@@ -24,11 +24,11 @@ public class GlobalExceptionHandler extends RuntimeException {
         ErrorResponse response = new ErrorResponse(ex.getMessage(), ex.getStatus());
         return new ResponseEntity<>(response, ex.getStatus());
     }
-//
-//    @ExceptionHandler(CustomException.class)
-//    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
-//        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), ex.getStatus());
-//        return ResponseEntity.status(ex.getStatus()).body(errorResponse);
-//    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), ex.getStatus());
+        return ResponseEntity.status(ex.getStatus()).body(errorResponse);
+    }
 
 }
