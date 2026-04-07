@@ -1,8 +1,8 @@
-package com.address.config;
+package com.employee.config;
 
-import com.address.exception.CustomException;
-import com.address.exception.ErrorResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;  // ← correct import
+import com.employee.exception.CustomException;
+import com.employee.exception.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.springframework.http.HttpStatus;

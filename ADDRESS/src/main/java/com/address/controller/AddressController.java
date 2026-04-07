@@ -50,6 +50,12 @@ public ResponseEntity<List<AddressDto>> getAllAddress(){
         return new ResponseEntity<>("Address Deleted Successfully", HttpStatus.OK);
 }
 
+    @GetMapping("/empId/{empId}")
+    public ResponseEntity<List<AddressDto>> getAddressByEmpId(@PathVariable Long empId) {
+        List<AddressDto> response = addressService.getAddressByEmpId(empId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
 }
 

@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/../Microservices/EUREKA-SERVER/pom.xml" />
         <option value="$PROJECT_DIR$/EMPLOYEE/pom.xml" />
         <option value="$PROJECT_DIR$/EUREKA-SERVER/pom.xml" />
+        <option value="$PROJECT_DIR$/../Microservices/AUTH/pom.xml" />
       </list>
     </option>
   </component>

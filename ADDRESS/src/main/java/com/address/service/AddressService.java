@@ -17,5 +17,6 @@ public interface AddressService {
 
     void deleteAddress(Long id);
 
+    List<AddressDto> getAddressByEmpId(Long empId);
 
 }
