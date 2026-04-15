@@ -1,0 +1,9 @@
+Circuit Breaker 
+- It is a resilience pattern used to cascading failure in a 
+microservices project. Means, when one microservices fails or becomes slow,
+causing all other dependent services to also fail one after another.
+- It monitores calls between services.
+- If one services is down or becomes too slow, then the breaker OPEN
+the circuit and stop further calls.
+- Instead of waiting for timeout, it return a fallback response immediately
+

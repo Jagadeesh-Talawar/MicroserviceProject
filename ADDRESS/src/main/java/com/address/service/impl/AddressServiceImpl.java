@@ -86,6 +86,12 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<AddressDto> getAllAddress() {
+        try{
+            Thread.sleep(6000);
+        }
+        catch(InterruptedException e){
+            throw new RuntimeException(e);
+        }
         List<Address> address = addressRepository.findAll();
         if(address.isEmpty()){
             throw new ResourceNotFoundException("No address found");
