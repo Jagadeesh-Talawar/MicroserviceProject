@@ -11,10 +11,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil  jwtUtil;
     public UserService(UserRepository userRepository,
-    PasswordEncoder passwordEncoder){
+
+    PasswordEncoder passwordEncoder,
+    JwtUtil jwtUtil){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     public UserDto saveUser(User user){
@@ -26,4 +30,15 @@ public class UserService {
                 savedUser.getRoles());
 
     }
+    public JwtTokenResponse generateToken(String username) {
+        String token = jwtUtil.generateToken(username);
+        JwtTokenResponse jwtTokenResponse = new JwtTokenResponse();
+        jwtTokenResponse.setToken(token);
+        jwtTokenResponse.setType("Bearer");
+        jwtTokenResponse.setValidUntil(jwtUtil.extractExpiration(token).toString());
+        return jwtTokenResponse;
+    }
+
+
+
 }

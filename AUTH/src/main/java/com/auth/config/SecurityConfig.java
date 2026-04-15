@@ -27,7 +27,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(("/auth/register")).permitAll();
+                    req.requestMatchers(("/auth/register-user", "/auth/generate-token")).permitAll();
                      req.anyRequest().authenticated();
                 }).userDetailsService(userDetailsService())
                 .httpBasic(Customizer.withDefaults());
