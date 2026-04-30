@@ -32,7 +32,9 @@ public class EmployeeController {
     @PutMapping("/update/{id}")
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable Long id){
         EmployeeDto response = employeeService.updateEmployee(id, employeeDto);
+        System.out.println(" The file is been updated ");
         return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/delete/{id}")

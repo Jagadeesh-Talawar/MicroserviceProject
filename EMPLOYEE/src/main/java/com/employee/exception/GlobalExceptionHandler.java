@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends RuntimeException {
 
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex){
         ErrorResponse response = new ErrorResponse(ex.getMessage(), ex.getStatus());
@@ -24,6 +25,7 @@ public class GlobalExceptionHandler extends RuntimeException {
         ErrorResponse response = new ErrorResponse(ex.getMessage(), ex.getStatus());
         return new ResponseEntity<>(response, ex.getStatus());
     }
+
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
